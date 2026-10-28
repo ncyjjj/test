@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.materialmaker.mapper.MaterialMapper">
+    <resultMap id="BaseResultMap" type="com.materialmaker.model.Material">
+        <id column="id" property="id"/>
+        <result column="task_id" property="taskId"/>
+        <result column="original_name" property="originalName"/>
+        <result column="mime_type" property="mimeType"/>
+        <result column="size_bytes" property="sizeBytes"/>
+        <result column="stored_path" property="storedPath"/>
+        <result column="public_url" property="publicUrl"/>
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
+
+    <insert id="insert" parameterType="com.materialmaker.model.Material">
+        INSERT INTO materials (id, task_id, original_name, mime_type, size_bytes, stored_path, public_url, created_at)
+        VALUES (#{id}, #{taskId}, #{originalName}, #{mimeType}, #{sizeBytes}, #{storedPath}, #{publicUrl}, NOW())
+    </insert>
+
+    <select id="findByTaskId" resultMap="BaseResultMap">
+        SELECT * FROM materials WHERE task_id = #{taskId}
+    </select>
+</mapper>
